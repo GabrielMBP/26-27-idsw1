@@ -1,7 +1,7 @@
 # Escenario 3: El concepto de simpatía
 
 ## Diagrama de Dominio
-![Diagrama de Simpatía](../images/DaigramaSimpatia.png)
+![Diagrama de Simpatía](../images/DiagramaSimpatia.png)
 
 ## Glosario
 * **Sujeto:** La persona principal a la que intentamos definir o evaluar.

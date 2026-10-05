@@ -1,0 +1,11 @@
+@startuml
+[*] --> Ejecutada
+
+Ejecutada --> EnContexto : ocurre en (Contexto)
+
+EnContexto --> AuraSumada : afecta (suma)
+EnContexto --> AuraRestada : afecta (resta)
+
+AuraSumada --> [*]
+AuraRestada --> [*]
+@enduml

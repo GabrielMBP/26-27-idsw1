@@ -1,35 +1,26 @@
-# Escenario 2: Farmear aura
+# Farmear aura
 
-## Diagrama de Dominio
-![Diagrama de Aura](../images/DiagramaAura.png)
+## 1. Diagrama de Clases
+![Diagrama de Clases de Aura](../images/DCAura2.png)
 
-## Glosario
-* **Individuo:** La persona que interactúa socialmente y cuyo estatus está en juego.
-* **Aura:** Una medida abstracta e intangible del carisma, respeto o "coolness" del individuo ante los demás.
-* **AccionSocial:** Cualquier acto, comentario o comportamiento que el individuo realiza (ej. decir algo épico, o tropezarse en público).
-* **Contexto:** El entorno físico o digital y los espectadores presentes. Una misma acción da o quita aura dependiendo de quién mire.
+### Glosario
+* **Persona:** Entidad base que participa en el entorno social.
+* **Farmeador:** Persona que realiza activamente una acción con el objetivo de ganar estatus.
+* **Espectador:** Persona que presencia la acción y actúa como juez del resultado.
+* **Accion:** El evento o comportamiento específico realizado por el farmeador (un comentario, un gesto, una hazaña).
+* **Aura:** Medida abstracta del prestigio, carisma o "coolness" acumulado por la persona.
 
-## Supuestos adoptados
-* El "Aura" no es algo estático ni viene de nacimiento, es un valor dinámico que fluctúa (como la experiencia en un videojuego).
-* Asumimos que para que haya un "farmeo" (o pérdida) de aura, la acción no ocurre en un vacío; requiere de un *Contexto* (otras personas o las redes sociales) que juzgue y valide el cambio de aura.
-* "Farmear" implica realizar *Acciones Sociales* deliberadas con la intención de subir el medidor.
+### Supuestos Adoptados
+* Para que haya una alteración real en el aura, la `Accion` debe contar obligatoriamente con al menos un `Espectador`. El farmeo no existe en el vacío.
 
-## Justificación de decisiones
-* **¿Por qué añadir `Contexto`?**
-  Farmear aura es un fenómeno puramente social. Caerse de las escaleras estando solo no te quita aura. Caerse frente a tu grupo de amigos sí. Por tanto, el *Contexto* es indispensable para que la *AccionSocial* tenga un efecto real sobre el *Aura*.
+### Justificación de Decisiones
+* **Herencia y Roles Claros:** Se utiliza la herencia (`Farmeador` y `Espectador` heredan de `Persona`) para modelar limpiamente que ambos comparten atributos básicos humanos, pero juegan roles semánticos distintos durante el evento.
 
-# Diagrama de Estados: Ciclo de Vida de una Acción Social (Farmear Aura)
+---
 
-## Diagrama de Estados (Versión Inicial)
-![Diagrama de Estados del Aura](../images/DEAura1.png)
+## 2. Diagrama de Estados (Ciclo de Farmeo)
+![Diagrama de Estados de Aura](../images/DEAura2.png)
 
-## Justificación de Decisiones (Versión Base Iterativa)
-
-Este diagrama de estados representa una primera aproximación al ciclo de vida de la entidad `AccionSocial`, modelado estrictamente a partir de las relaciones establecidas el diagrama de clases inicial. Se diseñó como una versión base.
-
-Las decisiones de modelado actuales se justifican de la siguiente manera:
-
-* **Enfoque en la `AccionSocial`:** Se ha elegido modelar el estado de la acción (y no del individuo o del aura) porque es la entidad que actúa como motor de cambio en el sistema. Es la acción la que nace, es evaluada y finalmente muere tras causar un impacto.
-* **Estado `Ejecutada`:** Representa el momento exacto en que el `Individuo` realiza el acto. Es el punto de entrada al sistema, reflejando la relación "Ejecuta" del modelo de dominio.
-* **Transición a `EnContexto`:** Refleja la necesidad absoluta de un entorno o público ("Ocurre en"). Una acción no tiene valor intrínseco de "aura" hasta que es expuesta a un `Contexto` que la percibe.
-* **Bifurcación Final (`AuraSumada` / `AuraRestada`):** Basado en la relación "Afecta (suma/resta)", el estado final de la acción depende del juicio del contexto. Esta separación imita flujos de validación estándar (como una solicitud "Aprobada" o "Rechazada") y marca el fin del ciclo de vida de la acción una vez que el atributo `Aura` del individuo ha sido actualizado.
+### Justificación de Decisiones
+* **El Estado Crítico ("Expuesto"):** Al ejecutar su acción, el farmeador queda vulnerable al escrutinio público, siendo este el momento exacto donde se decide el éxito o fracaso de la interacción.
+* **Naturaleza Cíclica:** El modelo refleja que farmear es un proceso iterativo. Tras recibir el impacto en su aura, el sujeto retorna a su estado `Neutral`, listo para detectar una nueva oportunidad y repetir el ciclo.

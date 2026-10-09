@@ -1,6 +1,6 @@
 # Farmear aura
 
-## 1. Diagrama de Clases
+## 1. Diagrama de Clases de Farmear Aura
 ![Diagrama de Clases de Aura](../images/DCAura4.png)
 
 ## Justificación de la Cardinalidad
